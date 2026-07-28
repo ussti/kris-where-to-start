@@ -1522,7 +1522,9 @@ function resultNav(){
   const paint = t => {
     if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
     else document.documentElement.removeAttribute('data-theme');
-    btn.innerHTML = t === 'light' ? '&#9728;' : '&#9789;';
+    /* U+263C — текстовый глиф солнца; у него нет emoji-варианта,
+       в отличие от U+2600, который iOS рисует цветной картинкой */
+    btn.innerHTML = t === 'light' ? '&#9788;' : '&#9789;';
     btn.setAttribute('aria-label', t === 'light' ? 'включить темную тему' : 'включить светлую тему');
     if (meta) meta.setAttribute('content', t === 'light' ? '#F4F2EC' : '#0D0D09');
   };
