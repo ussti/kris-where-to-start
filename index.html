@@ -516,15 +516,8 @@ body.res main{padding-bottom:150px}
 .ucs li:before{content:counter(u);position:absolute;left:14px;top:13px;width:22px;height:22px;
   border-radius:6px;background:var(--surface-2);border:1px solid var(--line-2);
   font:800 11px/22px var(--font-mono);text-align:center;color:var(--lime)}
-.ucs li.hid{display:none}
-.ucs.open li.hid{display:block}
 .uct{display:block;font-size:15px;line-height:1.38;font-weight:600;color:var(--ink)}
 .ucp{display:block;margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--muted)}
-.ucbtn{margin:11px 0 0;width:100%;padding:11px 14px;border-radius:var(--r-md);
-  border:1px dashed var(--line-2);background:transparent;color:var(--ink-soft);cursor:pointer;
-  font:600 13px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;
-  transition:border-color .15s,color .15s}
-.ucbtn:hover{border-color:var(--accent);color:var(--ink)}
 :root[data-theme="light"] .ucs li:before{color:var(--limeT)}
 /* краткий вывод-строка на разрыв (мостик перед планом) */
 .pr2 .blk.plain{background:var(--surface-2)}
@@ -1161,11 +1154,10 @@ function ucSection(){
   return '<div class="sect" id="s-use"><span class="lbl">применение в твоей сфере</span>' +
     '<p class="ucsub">' + ucSub(idx) + '</p>' +
     '<ol class="ucs" id="ucs">' +
-      list.map((u, k) => '<li' + (k > 2 ? ' class="hid"' : '') + '>' +
+      list.map(u => '<li>' +
         '<span class="uct">' + u[0] + '</span>' +
         '<span class="ucp">снимает «' + u[1] + '»</span></li>').join('') +
-    '</ol>' +
-    '<button class="ucbtn" id="ucmore">показать ещё 3</button></div>';
+    '</ol></div>';
 }
 
 function final(){
@@ -1255,8 +1247,6 @@ function final(){
     '<p>Нет системы — нет итогового понимания, как эти фрагментарные знания <span class="hl">преобразовать в свое конкурентное преимущество</span>. Как будто уже так много знаешь, умеешь, но как из этого всего <span class="hl">вынести пользу</span> — пока не знаешь.</p>' +
     '</div>';
 
-  h += '<div class="bridge">Абстрактно — да. Ниже тот же принцип развернут в план: сначала коротко, потом по шагам.</div>';
-
   /* 4 — краткий план */
   h += '<div class="sect" id="s-krat"><span class="lbl">краткий план</span>' +
     '<ol class="krat">' +
@@ -1317,7 +1307,6 @@ function final(){
         '</ul>' +
         '<div class="out"><span class="ol">в результате</span><span class="ov">рабочая среда, где ИИ видит твой контекст и данные. Уже не просто чат, а <span class="hlL">рабочий агент</span>, подключенный к твоему личному и/или рабочему контуру.</span></div>' +
       '</div>' +
-      '<div class="phase">Применение</div>' +
       '<div class="pc">' +
         '<div class="pchead"><span class="pcn">4</span><span class="pct">Применить ИИ на простом</span></div>' +
         '<p class="why"><span class="hl">Простой работающий сценарий</span> лучше сложной стратегии и плана.</p>' +
@@ -1415,14 +1404,6 @@ function final(){
       if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
     });
   });
-
-  /* «показать ещё 3» в блоке применения */
-  const ucBtn = document.getElementById('ucmore');
-  if (ucBtn) ucBtn.onclick = () => {
-    const box = document.getElementById('ucs');
-    const open = box.classList.toggle('open');
-    ucBtn.textContent = open ? 'свернуть' : 'показать ещё 3';
-  };
 
   document.getElementById('again').onclick = () => {
     Object.keys(ans).forEach(k => delete ans[k]);
