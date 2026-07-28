@@ -489,9 +489,11 @@ body.res main{padding-bottom:150px}
   font:800 12px/27px var(--font-mono);text-align:center;color:var(--lime)}
 /* пошаговый план — чекбокс-пункты внутри карточки */
 .chk{list-style:none;margin:9px 0 4px;padding:0;display:flex;flex-direction:column;gap:9px}
-.chk li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;line-height:1.42;color:var(--ink-soft)}
+/* блок, а не flex: во flex каждое слово рядом с <span> становится отдельным элементом
+   и между фрагментами строки появляются лишние отступы */
+.chk li{display:block;position:relative;padding-left:28px;font-size:14.5px;line-height:1.42;color:var(--ink-soft)}
 .chk li{cursor:pointer;user-select:none;transition:color .15s}
-.chk li:before{content:"";flex:none;width:17px;height:17px;margin-top:1px;border:1.5px solid var(--line-2);
+.chk li:before{content:"";position:absolute;left:0;top:2px;width:17px;height:17px;border:1.5px solid var(--line-2);
   border-radius:4px;background:var(--surface-2);transition:background .15s,border-color .15s;
   display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--lime-ink);line-height:1}
 .chk li:hover:before{border-color:var(--lime)}
@@ -816,11 +818,11 @@ function intro(){
     '<span class="eyebrow">14 вопросов · 3 минуты</span>' +
     '<h1>с чего начать <span class="fancy">именно мне</span>?</h1>' +
     '<p class="lede">расскажи о себе — а опрос закроет твои возражения, покажет, что ты ' +
-    'делал не так, и то, как и где ты можешь применить ии уже сегодня.</p>' +
+    'делал не так, и то, где именно в твоей работе ии даст результат уже сегодня.</p>' +
     '<div class="note"><b>важно:</b> точность зависит от честности твоих ответов ' +
     'и от того, как расставишь приоритеты.</div>' +
-    '<div class="note win"><b>в конце</b><span>— твой уровень вовлеченности в ии и твои узкие места, ' +
-    'пошаговый план, с чего начать в ии и полезные материалы для старта.</span></div>' +
+    '<div class="note win"><b>в конце</b><span>— твой уровень вовлеченности в ии и узкие места, ' +
+    'пошаговый план, 6 задач под твою сферу, с которых стоит начать, и материалы для старта.</span></div>' +
     '<div class="cta"><button class="btn" id="next">начать <span class="go">→</span></button></div>';
   nav.innerHTML = '';
   document.getElementById('next').onclick = () => { i = 0; sub = 0; render(); };
